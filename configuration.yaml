@@ -74,7 +74,7 @@ actors:
   coder:
     client: coder-instance
     model: "Tooony133/Qwen-3.6-27B-SkinnyPete"
-    workers: 256
+    workers: 176
     queue_size: 128
     max_tokens: 24576
     temperature: 0.6
@@ -86,7 +86,7 @@ actors:
     seed: 42
     enable_thinking: false
     multimodal: true
-    ensemble_size: 57
+    ensemble_size: 64
     ensemble_temperature: 0.6
     providers:
       order: []
