@@ -97,7 +97,7 @@ actors:
   critic:
     client: judge-critic-instance
     model: "zai-org/GLM-4.6V-Flash"
-    workers: 128
+    workers: 12
     queue_size: 64
     max_tokens: 6144
     temperature: 0.6
@@ -116,7 +116,7 @@ actors:
   judge:
     client: judge-critic-instance
     model: "zai-org/GLM-4.6V-Flash"
-    workers: 128
+    workers: 24
     queue_size: 64
     max_tokens: 8192
     temperature: 0.0
