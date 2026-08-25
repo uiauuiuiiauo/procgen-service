@@ -128,7 +128,7 @@ actors:
     workers: 32
     queue_size: 32
   renderer:
-    workers: 16
+    workers: 32
     queue_size: 32
 event_bus:
   max_iter: 2
@@ -147,7 +147,7 @@ renderer:
   grid_gap: 5
   bg_color: null
   lighting: neutral
-  sidecar_count: 8
-  pool_size: 2
+  sidecar_count: 12
+  pool_size: 3
   render_timeout_ms: 60000
   protocol_timeout_ms: 60000
