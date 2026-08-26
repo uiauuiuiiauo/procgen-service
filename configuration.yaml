@@ -3,7 +3,7 @@ api:
   port: 10006
   debug: true
 pipeline:
-  batch_time_budget: 14400
+  batch_time_budget: 1800
   prompt_timeout: 600.0
   use_planner: false
   render_from_object: true
