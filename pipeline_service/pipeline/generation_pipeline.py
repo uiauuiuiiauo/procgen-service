@@ -163,7 +163,7 @@ class GenerationPipeline:
         async def run_one(task: PipelineTask) -> None:
             while True:
                 result = await (await self._pipeline.submit(task))
-                if not result.failed or task.attempt ==1:
+                if not result.failed or task.attempt >= 2:
                     self.state.record_task(result)
                     return
                 task = PipelineTask(
@@ -205,12 +205,20 @@ class GenerationPipeline:
         try:
             logger.info(f"[Warmup task starting]")
             future = await self._pipeline.submit(task)
-            await future
+            result = await future
+            if getattr(result, "failed", False):
+                raise RuntimeError(
+                    f"warmup produced no module: "
+                    f"{getattr(result, 'failure_reason', 'unknown')}")
             logger.info(f"[Warmup task completed]")
         except asyncio.CancelledError:
             logger.info("[Warmup task cancelled]")
             raise
         except Exception as exc:
+            # Never fall through to READY on a failed warmup: the caller keeps the
+            # pod at warming_up and retries, which beats advertising a pod that
+            # cannot generate.
             logger.exception(f"[Warmup failed] {exc}")
+            raise
         finally:
             self._cleanup_batch_memory("Warmup")
