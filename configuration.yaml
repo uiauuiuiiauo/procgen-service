@@ -3,11 +3,11 @@ api:
   port: 10006
   debug: true
 pipeline:
-  batch_time_budget: 1800
+  batch_time_budget: 14400
   prompt_timeout: 600.0
   use_planner: false
   render_from_object: true
-  refinement_enabled: true
+  refinement_enabled: false
 benchmark: true
 warmup: true
 llm_clients:
@@ -20,8 +20,8 @@ llm_clients:
     base_url: http://localhost:8001/v1
     api_key: local
     vllm:
-      model: "Tooony133/Qwen-3.6-27B-SkinnyPete"
-      revision: "2d811e9cb9a74f311682cdcb68aa2404da6974a0"
+      model: "Tooony133/Qwen-3.8-27B-DinkyDoo"
+      revision: "511fbd527de68c9816a8fc8c5401c9da80541927"
       gpu_ids: 0,1,2
       tensor_parallel_size: 1
       data_parallel_size: 3
@@ -55,7 +55,7 @@ embedder:
 actors:
   planner:
     client: coder-instance
-    model: "Tooony133/Qwen-3.6-27B-SkinnyPete"
+    model: "Tooony133/Qwen-3.8-27B-DinkyDoo"
     workers: 256
     queue_size: 128
     max_tokens: 32768
@@ -73,8 +73,8 @@ actors:
       allow_fallbacks: true
   coder:
     client: coder-instance
-    model: "Tooony133/Qwen-3.6-27B-SkinnyPete"
-    workers: 176
+    model: "Tooony133/Qwen-3.8-27B-DinkyDoo"
+    workers: 256
     queue_size: 128
     max_tokens: 24576
     temperature: 0.6
@@ -86,7 +86,7 @@ actors:
     seed: 42
     enable_thinking: false
     multimodal: true
-    ensemble_size: 48
+    ensemble_size: 60
     ensemble_temperature: 0.6
     providers:
       order: []
@@ -116,7 +116,7 @@ actors:
   judge:
     client: judge-critic-instance
     model: "zai-org/GLM-4.6V-Flash"
-    workers: 24
+    workers: 128
     queue_size: 64
     max_tokens: 8192
     temperature: 0.0
@@ -125,10 +125,10 @@ actors:
       order: []
       allow_fallbacks: true
   checker:
-    workers: 32
+    workers: 16
     queue_size: 32
   renderer:
-    workers: 32
+    workers: 16
     queue_size: 32
 event_bus:
   max_iter: 2
@@ -147,7 +147,7 @@ renderer:
   grid_gap: 5
   bg_color: null
   lighting: neutral
-  sidecar_count: 12
-  pool_size: 3
+  sidecar_count: 8
+  pool_size: 2
   render_timeout_ms: 60000
   protocol_timeout_ms: 60000

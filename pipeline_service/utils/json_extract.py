@@ -7,6 +7,11 @@ _JSON_FENCE = re.compile(r"```(?:json)?\s*\n?(.*?)```", re.DOTALL | re.IGNORECAS
 _JSON_OBJECT = re.compile(r"\{.*\}", re.DOTALL)
 
 
+def strip_think_block(raw: str) -> str:
+    """Remove a leading/embedded <think>...</think> reasoning block, if present."""
+    return _THINK_BLOCK.sub("", raw).strip()
+
+
 def extract_json_object(raw: str) -> str:
     """Return the JSON object substring from `raw`, or `raw` itself if no match.
     """
