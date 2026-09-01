@@ -72,7 +72,7 @@ class GenerationPipeline:
             self._clients[name] = AsyncOpenAI(
                 base_url=cfg.base_url,
                 api_key=api_key,
-                timeout=httpx.Timeout(3600.0, connect=10.0),
+                timeout=httpx.Timeout(3600.0, connect=120.0),
                 max_retries=0,
             )
             logger.info(
