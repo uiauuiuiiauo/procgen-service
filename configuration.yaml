@@ -86,7 +86,7 @@ actors:
     seed: 42
     enable_thinking: false
     multimodal: true
-    ensemble_size: 60
+    ensemble_size: 55
     ensemble_temperature: 0.6
     providers:
       order: []
@@ -125,7 +125,7 @@ actors:
       order: []
       allow_fallbacks: true
   checker:
-    workers: 16
+    workers: 32
     queue_size: 32
   renderer:
     workers: 16
